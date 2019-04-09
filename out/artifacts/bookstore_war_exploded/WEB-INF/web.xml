@@ -11,11 +11,11 @@
         <location>/index.html</location>
     </error-page>
     <servlet>
-        <servlet-name>Index</servlet-name>
-        <servlet-class>Index</servlet-class>
+        <servlet-name>book</servlet-name>
+        <servlet-class>book</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Index</servlet-name>
-        <url-pattern>/Index</url-pattern>
+        <servlet-name>book</servlet-name>
+        <url-pattern>/book</url-pattern>
     </servlet-mapping>
 </web-app>
