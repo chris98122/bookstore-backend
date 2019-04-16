@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="OrderContentEntity" table="order_content" schema="bookstore">
+        <id name="id">
+            <column name="ID" sql-type="varchar(5)" length="5"/>
+        </id>
+        <property name="bNum">
+            <column name="b_num" sql-type="decimal(5)" precision="5" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

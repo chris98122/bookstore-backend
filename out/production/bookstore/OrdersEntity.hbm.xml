@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="OrdersEntity" table="orders" schema="bookstore">
+        <id name="id">
+            <column name="ID" sql-type="varchar(5)" length="5"/>
+        </id>
+        <property name="date">
+            <column name="date" sql-type="timestamp" not-null="true"/>
+        </property>
+        <property name="totPrice">
+            <column name="tot_price" sql-type="decimal(5,2)" precision="5" scale="2" not-null="true"/>
+        </property>
+        <property name="isCart">
+            <column name="is_cart" sql-type="tinyint(1)" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>
