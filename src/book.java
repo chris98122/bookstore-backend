@@ -9,6 +9,9 @@ import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
+   import com.alibaba.fastjson.JSON;
+   import com.alibaba.fastjson.JSONArray;
+   import com.alibaba.fastjson.JSONObject;
 @WebServlet("/book")
 public class book  extends HttpServlet {
 
@@ -26,20 +29,25 @@ public class book  extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.doPost(request, response);
+    }
+
+    // 处理 POST 方法请求的方法
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         try {
             // Begin unit of work
             HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
-            // Write HTML header
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            request.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<html><head><title>book</title></head><body>");
 
-            // Print page
-            //printUserForm(out);
-            listBook(out);
 
-            // Write HTML footer
-            out.println("</body></html>");
-            out.flush();
+            List<BookEntity> result = HibernateUtil.getSessionFactory()
+                    .getCurrentSession().createQuery("from BookEntity").list();
+            String re= JSON.toJSONString(result, true);
+            out.write(re);
             out.close();
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
         }
@@ -54,36 +62,5 @@ public class book  extends HttpServlet {
         }
     }
 
-    // 处理 POST 方法请求的方法
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
-    }
 
-    @SuppressWarnings({ "unchecked" })
-    private void listBook(PrintWriter out) {
-        List<BookEntity> result = HibernateUtil.getSessionFactory()
-                .getCurrentSession().createQuery("from BookEntity").list();
-        if (result.size() > 0) {
-            out.println("<h2>books in database:</h2>");
-            out.println("<table border='1'>");
-            out.println("<tr>");
-            out.println("<th>id</th>");
-            out.println("<th>bookname</th>");
-            out.println("<th>author</th>");
-            out.println("<th>ISBN</th>");
-            out.println("<th>stock</th>");
-            out.println("</tr>");
-            Iterator it = result.iterator();
-            while (it.hasNext()) {
-                BookEntity b = ( BookEntity) it.next();
-                out.println("<tr>");
-                out.println("<td>" + b.getName() + "</td>");
-                out.println("<td>" + b.getAuthor() + "</td>");
-                out.println("<td>" + b.getStock() + "</td>");
-                out.println("</tr>");
-            }
-            out.println("</table>");
-        }
-
-    }
 }

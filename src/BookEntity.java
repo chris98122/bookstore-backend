@@ -10,7 +10,8 @@ public class BookEntity {
     private String name;
     private String author;
     private Integer stock;
-    private String isbn;
+    private Integer price;
+    private String ISBN;
 
     @Id
     @Column(name = "ID", nullable = false, length = 5)
@@ -53,13 +54,23 @@ public class BookEntity {
     }
 
     @Basic
+    @Column(name = "price", nullable = true, precision = 0)
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    @Basic
     @Column(name = "ISBN", nullable = true, length = 20)
     public String getIsbn() {
-        return isbn;
+        return ISBN;
     }
 
     public void setIsbn(String isbn) {
-        this.isbn = isbn;
+        this.ISBN = isbn;
     }
 
     @Override
@@ -71,11 +82,12 @@ public class BookEntity {
                 Objects.equals(name, that.name) &&
                 Objects.equals(author, that.author) &&
                 Objects.equals(stock, that.stock) &&
-                Objects.equals(isbn, that.isbn);
+                Objects.equals(ISBN, that.ISBN)&&
+                Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, author, stock, isbn);
+        return Objects.hash(id, name, author, stock,price, ISBN);
     }
 }
