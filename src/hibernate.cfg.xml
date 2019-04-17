@@ -18,11 +18,10 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
         <mapping class="BookEntity"/>
-        <!-- <property name="connection.username"/> -->
-        <!-- <property name="connection.password"/> -->
-
-        <!-- DB schema will be updated if needed -->
         <mapping resource="book.hbm.xml"/>
+
+        <mapping class="UserEntity"/>
+        <mapping resource="UserEntity.hbm.xml"/>
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>
 </hibernate-configuration>
