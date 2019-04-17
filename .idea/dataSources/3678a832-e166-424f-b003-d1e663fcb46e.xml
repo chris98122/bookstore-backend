@@ -1125,8 +1125,9 @@
     <table id="285" parent="2" name="user"/>
     <column id="286" parent="282" name="ID">
       <Position>1</Position>
-      <DataType>varchar(5)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="287" parent="282" name="name">
@@ -1142,7 +1143,8 @@
     </column>
     <column id="289" parent="282" name="stock">
       <Position>4</Position>
-      <DataType>decimal(5)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="290" parent="282" name="price">
@@ -1162,18 +1164,21 @@
     </key>
     <column id="293" parent="283" name="ID">
       <Position>1</Position>
-      <DataType>varchar(5)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="294" parent="283" name="o_ID">
       <Position>2</Position>
-      <DataType>varchar(5)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="295" parent="283" name="b_ID">
       <Position>3</Position>
-      <DataType>varchar(5)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="296" parent="283" name="b_num">
@@ -1208,13 +1213,15 @@
     </foreign-key>
     <column id="302" parent="284" name="ID">
       <Position>1</Position>
-      <DataType>varchar(5)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="303" parent="284" name="u_ID">
       <Position>2</Position>
-      <DataType>varchar(5)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="304" parent="284" name="date">
@@ -1246,11 +1253,13 @@
       <RefSchemaName>bookstore</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>ID</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="310" parent="285" name="ID">
       <Position>1</Position>
-      <DataType>varchar(5)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="311" parent="285" name="name">

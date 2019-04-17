@@ -4,6 +4,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
@@ -53,7 +54,7 @@ public class register  extends HttpServlet {
             String password=request.getParameter("password");
             String email=request.getParameter("email");
             UserEntity user = new UserEntity();
-            user.setId("11");
+            user.setId(0);
             user.setName(name);
             user.setPassword(password);
             user.setEmail(email);

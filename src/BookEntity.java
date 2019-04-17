@@ -6,7 +6,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "book", schema = "bookstore", catalog = "")
 public class BookEntity {
-    private String id;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
     private String name;
     private String author;
     private Integer stock;
@@ -15,11 +17,11 @@ public class BookEntity {
 
     @Id
     @Column(name = "ID", nullable = false, length = 5)
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

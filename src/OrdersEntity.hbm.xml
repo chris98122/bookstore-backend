@@ -6,7 +6,8 @@
 
     <class name="OrdersEntity" table="orders" schema="bookstore">
         <id name="id">
-            <column name="ID" sql-type="varchar(5)" length="5"/>
+            <column name="ID" sql-type="int(11)"/>
+            <generator class="increment" />
         </id>
         <property name="date">
             <column name="date" sql-type="timestamp" not-null="true"/>
@@ -17,5 +18,9 @@
         <property name="isCart">
             <column name="is_cart" sql-type="tinyint(1)" not-null="true"/>
         </property>
+        <set name="ordercontent">
+            <key column="o_ID"></key>
+            <one-to-many class="OrderContentEntity"></one-to-many>
+        </set>
     </class>
 </hibernate-mapping>

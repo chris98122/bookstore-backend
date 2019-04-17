@@ -6,10 +6,12 @@
 
     <class name="OrderContentEntity" table="order_content" schema="bookstore">
         <id name="id">
-            <column name="ID" sql-type="varchar(5)" length="5"/>
+            <column name="ID" sql-type="int(11)"/>
+            <generator class="increment" />
         </id>
         <property name="bNum">
             <column name="b_num" sql-type="decimal(5)" precision="5" not-null="true"/>
         </property>
+        <many-to-one name="orders" column="o_ID" class="OrdersEntity"></many-to-one>
     </class>
 </hibernate-mapping>

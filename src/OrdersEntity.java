@@ -1,19 +1,36 @@
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+import java.util.HashSet;
+
+import java.util.Set;
 public class OrdersEntity {
-    private String id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private int id;
     private Timestamp date;
     private BigDecimal totPrice;
     private Byte isCart;
+    private Set<OrderContentEntity> ordercontent=new HashSet<>(0);
 
-    public String getId() {
+    public Set<OrderContentEntity> getOrdercontent() {
+        return ordercontent;
+    }
+
+    public void setOrdercontent(Set<OrderContentEntity> ordercontent) {
+        this.ordercontent = ordercontent;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -39,6 +56,13 @@ public class OrdersEntity {
 
     public void setIsCart(Byte isCart) {
         this.isCart = isCart;
+    }
+
+    public Set<OrderContentEntity> getOrderContent() {
+        return ordercontent;
+    }
+    public void setOrderContent(Set<OrderContentEntity> ordercontent) {
+        this.ordercontent = ordercontent;
     }
 
     @Override

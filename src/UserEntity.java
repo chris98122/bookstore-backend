@@ -1,19 +1,24 @@
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 
 
 public class UserEntity {
-    private String id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private int id;
     private String name;
     private String password;
     private String email;
     private Byte isActive;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -20,6 +20,12 @@
         <mapping class="BookEntity"/>
         <mapping resource="book.hbm.xml"/>
 
+        <mapping class="OrdersEntity"/>
+        <mapping resource="OrdersEntity.hbm.xml"/>
+
+        <mapping class="OrderContentEntity"/>
+        <mapping resource="OrderContentEntity.hbm.xml"/>
+
         <mapping class="UserEntity"/>
         <mapping resource="UserEntity.hbm.xml"/>
         <!-- <property name="hbm2ddl.auto">update</property> -->

@@ -1,15 +1,20 @@
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 
 public class OrderContentEntity {
-    private String id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private int id;
     private Integer bNum;
-
-    public String getId() {
+    private OrdersEntity orders;
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int  id) {
         this.id = id;
     }
 
@@ -21,6 +26,12 @@ public class OrderContentEntity {
         this.bNum = bNum;
     }
 
+    public OrdersEntity getOrders() {
+        return orders;
+    }
+    public void setOrders(OrdersEntity orders) {
+        this.orders = orders;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
