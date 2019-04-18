@@ -18,5 +18,10 @@
         <property name="isCart">
             <column name="is_cart" sql-type="tinyint(1)" not-null="true"/>
         </property>
+        <set name="ordercontent">
+            <key column="o_ID"></key>
+            <one-to-many class="OrderContentEntity"></one-to-many>
+        </set>
+        <many-to-one name="user" class="UserEntity" column="u_ID"/>
     </class>
 </hibernate-mapping>

@@ -4,6 +4,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Objects;
 
+import java.util.HashSet;
+
+import java.util.Set;
 
 public class UserEntity {
     @Id
@@ -13,7 +16,14 @@ public class UserEntity {
     private String password;
     private String email;
     private Byte isActive;
+    private Set<OrdersEntity > orders = new HashSet<OrdersEntity >();
 
+    public Set<OrdersEntity> getOrders() {
+        return orders;
+    }
+    public void setOrders(Set<OrdersEntity> orders) {
+        this.orders = orders;
+    }
     public int getId() {
         return id;
     }

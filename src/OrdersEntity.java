@@ -16,7 +16,17 @@ public class OrdersEntity {
     private Timestamp date;
     private BigDecimal totPrice;
     private Byte isCart;
+
+    private UserEntity user;
     private Set<OrderContentEntity> ordercontent=new HashSet<>(0);
+
+    public  UserEntity getUser() {
+        return  user;
+    }
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
 
     public Set<OrderContentEntity> getOrdercontent() {
         return ordercontent;

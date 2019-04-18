@@ -3,6 +3,9 @@
 import javax.persistence.*;
 import java.util.Objects;
 
+import java.util.HashSet;
+
+import java.util.Set;
 @Entity
 @Table(name = "book", schema = "bookstore", catalog = "")
 public class BookEntity {
@@ -14,7 +17,6 @@ public class BookEntity {
     private Integer stock;
     private Integer price;
     private String ISBN;
-
     @Id
     @Column(name = "ID", nullable = false, length = 5)
     public int getId() {
@@ -74,6 +76,7 @@ public class BookEntity {
     public void setIsbn(String isbn) {
         this.ISBN = isbn;
     }
+
 
     @Override
     public boolean equals(Object o) {

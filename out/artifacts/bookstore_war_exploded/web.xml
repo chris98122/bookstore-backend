@@ -18,4 +18,7 @@
         <servlet-name>book</servlet-name>
         <url-pattern>/book</url-pattern>
     </servlet-mapping>
+    <session-config>
+        <session-timeout>180</session-timeout>
+    </session-config>
 </web-app>

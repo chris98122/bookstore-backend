@@ -54,44 +54,25 @@ public class order  extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
             HttpSession session = request.getSession();
-            String userid = (String) session.getAttribute("userid");
+            int userid = (int) session.getAttribute("userid");
 
-
-
-            String hql = "FROM OrdersEntity where u_ID =:i";
+            String hql = "select  o.id,o.date, c.bNum, b.name,b.price FROM UserEntity u inner join u.orders o inner join o.ordercontent c inner join c.book b " +
+                    " where u.id =:uid";
             Query query = HibernateUtil.getSessionFactory()
-                    .getCurrentSession().createQuery(hql).setString("i",userid);
-            List<OrdersEntity> result = query.list();
+                    .getCurrentSession().createQuery(hql).setInteger("uid", userid);
+            List<Object[]> result = query.list();
 
-            Iterator<OrdersEntity> iter = result.iterator();
-            while(iter.hasNext()) {
-                OrdersEntity q=iter.next();
-                int id = q.getId();
-                String hql_content = "FROM OrderContentEntity where o_ID =:o";
-                Query query_content = HibernateUtil.getSessionFactory()
-                        .getCurrentSession().createQuery(hql_content).setString("o",userid);
-                //选出了同一个订单下的content
-                List<OrderContentEntity> order_content = query_content.list();
-                Iterator<OrderContentEntity> iter_cnt = order_content.iterator();
-                //一个content只有一种书
-                while(iter_cnt.hasNext()) {
-                    //选出了同一个订单下的所有书o_ID  b_ID		b_num
-                    String hql_book = "FROM BookEntity where b_ID =:b";;
-                   // int bookid=;//还没有写getbid
-                    Query query_book = HibernateUtil.getSessionFactory()
-                            .getCurrentSession().createQuery(hql_content).setString("b", bookid);
-                }
-            }
-                out.close();
+            String re= JSON.toJSONString(result, true);
+            out.write(re);
+            out.close();
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().rollback();
-            if ( ServletException.class.isInstance( ex ) ) {
-                throw ( ServletException ) ex;
-            }
-            else {
-                throw new ServletException( ex );
+            if (ServletException.class.isInstance(ex)) {
+                throw (ServletException) ex;
+            } else {
+                throw new ServletException(ex);
             }
         }
     }
+}
