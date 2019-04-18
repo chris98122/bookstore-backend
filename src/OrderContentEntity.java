@@ -10,7 +10,7 @@ public class OrderContentEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
-    private Integer bNum;
+    private int bNum;
     private OrdersEntity orders;
     private int bid;
     private BookEntity book;//单向一对一 ordercontent->book
@@ -24,7 +24,7 @@ public class OrderContentEntity {
         this.id = id;
     }
 
-    public Integer getbNum() {
+    public int getbNum() {
         return bNum;
     }
 

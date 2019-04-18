@@ -15,7 +15,7 @@ public class BookEntity {
     private String name;
     private String author;
     private Integer stock;
-    private Integer price;
+    private float price;
     private String ISBN;
     @Id
     @Column(name = "ID", nullable = false, length = 5)
@@ -59,11 +59,11 @@ public class BookEntity {
 
     @Basic
     @Column(name = "price", nullable = true, precision = 0)
-    public Integer getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

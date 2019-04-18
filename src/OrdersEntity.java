@@ -14,7 +14,7 @@ public class OrdersEntity {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
     private Timestamp date;
-    private BigDecimal totPrice;
+    private float totPrice;
     private Byte isCart;
 
     private UserEntity user;
@@ -52,11 +52,11 @@ public class OrdersEntity {
         this.date = date;
     }
 
-    public BigDecimal getTotPrice() {
+    public float getTotPrice() {
         return totPrice;
     }
 
-    public void setTotPrice(BigDecimal totPrice) {
+    public void setTotPrice(float totPrice) {
         this.totPrice = totPrice;
     }
 

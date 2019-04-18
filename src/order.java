@@ -23,7 +23,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.hibernate.query.Query;
 
-@WebServlet("/orders")
+
+@WebServlet("/orders_show")
 public class order  extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -56,11 +57,11 @@ public class order  extends HttpServlet {
             HttpSession session = request.getSession();
             int userid = (int) session.getAttribute("userid");
 
-            String hql = "select  o.id,o.date, c.bNum, b.name,b.price FROM UserEntity u inner join u.orders o inner join o.ordercontent c inner join c.book b " +
+            String hql = "select new orderquery( o.id,o.date, c.bNum, b.name,b.price,o.totPrice) FROM UserEntity u inner join u.orders o inner join o.ordercontent c inner join c.book b " +
                     " where u.id =:uid";
             Query query = HibernateUtil.getSessionFactory()
                     .getCurrentSession().createQuery(hql).setInteger("uid", userid);
-            List<Object[]> result = query.list();
+            List<orderquery> result = query.list();
 
             String re= JSON.toJSONString(result, true);
             out.write(re);
