@@ -4,32 +4,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import javax.servlet.http.HttpSession;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-
-@WebServlet("/login")
-public class login  extends HttpServlet {
+@WebServlet("/bookdetail")
+public class bookdetail  extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public login() {
+    public bookdetail() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -52,34 +44,13 @@ public class login  extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
 
-            String qname = request.getParameter("name");
-            String password=request.getParameter("password");
 
-            //Map<String, String> loginUserMap = new HashMap<>();
+            int id = Integer.parseInt(request.getParameter("id"));
 
-            String hql = "FROM UserEntity where name =:n";
-            Query query = HibernateUtil.getSessionFactory()
-                    .getCurrentSession().createQuery(hql).setString("n",qname);
-
-
-            List<UserEntity> result = query.list();
-            if(result.get(0).getPassword().equals(password)) {
-                HttpSession session = request.getSession();
-                int userid=result.get(0).getId();
-                String username=result.get(0).getName();
-                session.setAttribute("username", username);
-                session.setAttribute("userid", userid);
-                if(userid == 1)
-                {
-                    session.setAttribute("isAdmin",true);
-                    out.write("管理员登录成功");
-                }
-                else
-                {
-                    session.setAttribute("isAdmin",false);
-                    out.write("用户登录成功");
-                }
-            }
+            List<BookEntity> result = HibernateUtil.getSessionFactory()
+                    .getCurrentSession().createQuery("from BookEntity where id=:id").setInteger("id",id).list();
+            String re= JSON.toJSONString(result, true);
+            out.write(re);
             out.close();
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
         }
