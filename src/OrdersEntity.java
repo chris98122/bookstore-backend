@@ -4,6 +4,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 import java.util.HashSet;
@@ -13,11 +14,12 @@ public class OrdersEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
-    private Timestamp date;
+    private String date;
     private float totPrice;
     private Byte isCart;
 
     private UserEntity user;
+
     private Set<OrderContentEntity> ordercontent=new HashSet<>(0);
 
     public  UserEntity getUser() {
@@ -44,11 +46,11 @@ public class OrdersEntity {
         this.id = id;
     }
 
-    public Timestamp getDate() {
+    public String  getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(String  date) {
         this.date = date;
     }
 

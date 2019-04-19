@@ -12,7 +12,6 @@ public class OrderContentEntity {
     private int id;
     private int bNum;
     private OrdersEntity orders;
-    private int bid;
     private BookEntity book;//单向一对一 ordercontent->book
 
 
@@ -33,13 +32,6 @@ public class OrderContentEntity {
     }
 
 
-    public int getBid() {
-        return bid;
-    }
-
-    public void setBid(int  id) {
-        this.bid = bid;
-    }
 
     public OrdersEntity getOrders() {
         return orders;
@@ -61,8 +53,7 @@ public class OrderContentEntity {
         if (o == null || getClass() != o.getClass()) return false;
         OrderContentEntity that = (OrderContentEntity) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(bNum, that.bNum)&&
-                Objects.equals(bid, that.bid);
+                Objects.equals(bNum, that.bNum);
     }
 
     @Override

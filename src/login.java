@@ -59,13 +59,21 @@ public class login  extends HttpServlet {
 
             List<UserEntity> result = query.list();
             if(result.get(0).getPassword().equals(password)) {
-                String r = "登录成功";
                 HttpSession session = request.getSession();
                 int userid=result.get(0).getId();
                 String username=result.get(0).getName();
                 session.setAttribute("username", username);
                 session.setAttribute("userid", userid);
-                out.write(r);
+                if(userid == 1)
+                {
+                    session.setAttribute("isAdmin",true);
+                    out.write("管理员登录成功");
+                }
+                else
+                {
+                    session.setAttribute("isAdmin",false);
+                    out.write("用户登录成功");
+                }
             }
             out.close();
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();

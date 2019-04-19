@@ -57,11 +57,11 @@ public class order  extends HttpServlet {
             HttpSession session = request.getSession();
             int userid = (int) session.getAttribute("userid");
 
-            String hql = "select new orderquery( o.id,o.date, c.bNum, b.name,b.price,o.totPrice) FROM UserEntity u inner join u.orders o inner join o.ordercontent c inner join c.book b " +
-                    " where u.id =:uid";
+            String hql = "from OrdersEntity o " +
+                    " where o.user.id =:uid and o.isCart=0";
             Query query = HibernateUtil.getSessionFactory()
                     .getCurrentSession().createQuery(hql).setInteger("uid", userid);
-            List<orderquery> result = query.list();
+            List<OrdersEntity> result = query.list();
 
             String re= JSON.toJSONString(result, true);
             out.write(re);
