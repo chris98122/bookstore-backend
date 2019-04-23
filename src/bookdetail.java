@@ -45,7 +45,7 @@ public class bookdetail  extends HttpServlet {
             PrintWriter out = response.getWriter();
 
 
-            int id = Integer.parseInt(request.getParameter("id"));
+            int id = Integer.parseInt(request.getParameter("id").trim());
 
             List<BookEntity> result = HibernateUtil.getSessionFactory()
                     .getCurrentSession().createQuery("from BookEntity where id=:id").setInteger("id",id).list();

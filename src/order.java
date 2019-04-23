@@ -55,16 +55,27 @@ public class order  extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
             HttpSession session = request.getSession();
-            int userid = (int) session.getAttribute("userid");
+                if(session.getAttribute("userid") == null)
+                {
+                    out.write("用户未登录");
+                    out.close();
+                    return;
 
+            }
+
+
+            int userid = (int) session.getAttribute("userid");
             String hql = "from OrdersEntity o " +
                     " where o.user.id =:uid and o.isCart=0";
             Query query = HibernateUtil.getSessionFactory()
                     .getCurrentSession().createQuery(hql).setInteger("uid", userid);
             List<OrdersEntity> result = query.list();
+            for(OrdersEntity o:result)
+            {
+                String re= JSON.toJSONString(o, true);
+                out.write(re);
+            }
 
-            String re= JSON.toJSONString(result, true);
-            out.write(re);
             out.close();
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
         } catch (Exception ex) {

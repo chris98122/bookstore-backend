@@ -69,6 +69,9 @@ public class login  extends HttpServlet {
                 String username=result.get(0).getName();
                 session.setAttribute("username", username);
                 session.setAttribute("userid", userid);
+                String sessionId = session.getId();
+                    //判断session是不是新创建的
+
                 if(userid == 1)
                 {
                     session.setAttribute("isAdmin",true);

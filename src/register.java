@@ -61,7 +61,7 @@ public class register  extends HttpServlet {
             Byte a=1;
             user.setIsActive(a);
 
-            //通过实例化的Person对象插入数据
+            //通过实例化的user对象插入数据
             UserOperator uo = new UserOperator();
             uo.UserInsert(user);
             out.write("注册成功");

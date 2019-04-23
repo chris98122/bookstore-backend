@@ -12,8 +12,11 @@ public class OrderContentEntity {
     private int id;
     private int bNum;
     private OrdersEntity orders;
-    private BookEntity book;//单向一对一 ordercontent->book
+    private BookEntity book;
 
+    public void setbNum(int bNum) {
+        this.bNum = bNum;
+    }
 
     public int getId() {
         return id;
@@ -26,12 +29,6 @@ public class OrderContentEntity {
     public int getbNum() {
         return bNum;
     }
-
-    public void setbNum(Integer bNum) {
-        this.bNum = bNum;
-    }
-
-
 
     public OrdersEntity getOrders() {
         return orders;

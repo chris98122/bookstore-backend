@@ -55,7 +55,15 @@ public class cart  extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
             HttpSession session = request.getSession();
+            if(session.getAttribute("userid") == null)
+            {
+                out.write("用户未登录");
+                out.close();
+                return;
+
+            }
             int userid = (int) session.getAttribute("userid");
+
 
             String hql = "from OrdersEntity o " +
                     " where o.user.id =:uid and o.isCart=1";

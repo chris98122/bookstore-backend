@@ -3,10 +3,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
 
+import java.util.Date;
 import java.util.HashSet;
 
 import java.util.Set;
@@ -14,13 +14,23 @@ public class OrdersEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
-    private String date;
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     private float totPrice;
     private Byte isCart;
 
     private UserEntity user;
 
-    private Set<OrderContentEntity> ordercontent=new HashSet<>(0);
+    private Set<OrderContentEntity> ordercontent = new HashSet<>(0);
+
 
     public  UserEntity getUser() {
         return  user;
@@ -44,14 +54,6 @@ public class OrdersEntity {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String  getDate() {
-        return date;
-    }
-
-    public void setDate(String  date) {
-        this.date = date;
     }
 
     public float getTotPrice() {
@@ -87,6 +89,7 @@ public class OrdersEntity {
                 Objects.equals(totPrice, that.totPrice) &&
                 Objects.equals(isCart, that.isCart);
     }
+
 
     @Override
     public int hashCode() {

@@ -16,7 +16,7 @@ public class BookEntity {
     private String author;
     private Integer stock;
     private float price;
-    private String ISBN;
+    private String isbn;
     @Id
     @Column(name = "ID", nullable = false, length = 5)
     public int getId() {
@@ -67,16 +67,14 @@ public class BookEntity {
         this.price = price;
     }
 
-    @Basic
-    @Column(name = "ISBN", nullable = true, length = 20)
+
     public String getIsbn() {
-        return ISBN;
+        return isbn;
     }
 
     public void setIsbn(String isbn) {
-        this.ISBN = isbn;
+        this.isbn = isbn;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -87,12 +85,12 @@ public class BookEntity {
                 Objects.equals(name, that.name) &&
                 Objects.equals(author, that.author) &&
                 Objects.equals(stock, that.stock) &&
-                Objects.equals(ISBN, that.ISBN)&&
+                Objects.equals(isbn, that.isbn)&&
                 Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, author, stock,price, ISBN);
+        return Objects.hash(id, name, author, stock,price, isbn);
     }
 }
