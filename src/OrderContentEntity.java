@@ -21,7 +21,13 @@ public class OrderContentEntity {
     public int getOid() {
         return oid;
     }
-
+        public void print()
+        {
+            System.out.println(this.id);
+            System.out.println(this.bNum);
+            System.out.println(this.oid);
+            System.out.println(this.book.getName());
+        }
     public void setOid(int oid) {
         this.oid = oid;
     }

@@ -79,46 +79,57 @@ public class buy extends HttpServlet {
 
          Set<OrderContentEntity> contentinsert = new HashSet<>(0);
 
+
+            String hql = "select max(o.id)from OrdersEntity o ";
+            Query query = HibernateUtil.getSessionFactory()
+                    .getCurrentSession().createQuery(hql);
+
+            List<Integer> oid =query.list();
+
+            int o_id = oid.get(0)+1;
+
+
+            String hql2 = "select max(o.id)from OrderContentEntity o ";
+            Query query2 = HibernateUtil.getSessionFactory()
+                    .getCurrentSession().createQuery(hql2);
+
+            List<Integer> cid =query.list();
+
+            int c_id=cid.get(0)+1;
+
             for (int i = 0; i < buylist.size(); i++) {
+                buylist.get(i).print();
+
                 if(!buylist.get(i).isSelected())
                     continue;
+
                 int id = buylist.get(i).getId();
                 System.out.println(id);
                 int bnum = buylist.get(i).getBnum();
                 float price = buylist.get(i).getPrice();
                 ordercontent[i].setbNum(bnum);
-                ordercontent[i].setId(0);
-
-                String hql = "select max(o.id)from OrdersEntity o ";
-                Query query = HibernateUtil.getSessionFactory()
-                        .getCurrentSession().createQuery(hql);
-
-                 List<Integer> oid =query.list();
-                ordercontent[i].setOid(oid.get(0)+1);
+                ordercontent[i].setId(c_id+i);
+                ordercontent[i].setOid(o_id);
 
                 List<BookEntity> book_search = HibernateUtil.getSessionFactory()
                      .getCurrentSession().createQuery("from BookEntity where id=:i").setInteger("i", id).list();
 
                 ordercontent[i].setBook(book_search.get(0));
-
                 contentinsert.add( ordercontent[i]);
          }
 
             if(contentinsert.isEmpty())
             {
                 String re = "您没有选中任何商品";
-
                 out.write(re);
                 out.close();
-
                 HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
                 return;
             }
 
             order_insert.setId(0);
-
             order_insert.setOrdercontent(contentinsert);
-            order_insert.setOrderContent(contentinsert);
+           // order_insert.setOrderContent(contentinsert);
             Date date = new Date();
             order_insert.setDate(date);
             Byte a = 0;
@@ -128,19 +139,16 @@ public class buy extends HttpServlet {
             List<UserEntity> user_search = HibernateUtil.getSessionFactory()
                     .getCurrentSession().createQuery("from UserEntity where  id=:i").setInteger("i", userid).list();
 
-
             order_insert.setUser( user_search.get(0));
             OrderOperator o = new OrderOperator();
 
              o.OrderInsert(order_insert);
-
                 int orderid = order_insert.getId();
-
-
                 String re = "下单成功，订单号" + Integer.toString(orderid);
-
                 out.write(re);
                 out.close();
+                //购物车减去已经下单的商品
+
                 HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
 
             } catch (Exception ex) {
@@ -151,5 +159,23 @@ public class buy extends HttpServlet {
                 throw new ServletException(ex);
             }
         }
+    }
+
+    public void delete(int id) {
+        //获取Session
+        Configuration config = new Configuration();
+        SessionFactory factory = config.configure().buildSessionFactory();
+
+        // 所有的操作都是通过sess
+        Session session = factory.openSession();
+        //获取Hibernate的事务
+        Transaction tx = session.beginTransaction();
+        OrderContentEntity o =new OrderContentEntity();
+        o.setId(id);
+        session.delete(o);
+        //提交事务
+        tx.commit();
+
+        session.close();
     }
 }

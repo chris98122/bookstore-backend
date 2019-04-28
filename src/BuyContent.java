@@ -5,6 +5,15 @@ public class BuyContent {
     private float price;
     private boolean selected;
 
+
+    public void print()
+    {
+        System.out.println(this.id);
+        System.out.println(this.bnum);
+        System.out.println(this.name);
+        System.out.println(this.price);
+        System.out.println(this.selected);
+    }
     public boolean isSelected() {
         return selected;
     }
