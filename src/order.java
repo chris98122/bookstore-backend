@@ -21,6 +21,8 @@ import org.hibernate.cfg.Configuration;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.hibernate.query.Query;
 
 
@@ -69,12 +71,14 @@ public class order  extends HttpServlet {
                     " where o.user.id =:uid and o.isCart=0";
             Query query = HibernateUtil.getSessionFactory()
                     .getCurrentSession().createQuery(hql).setInteger("uid", userid);
-            List<OrdersEntity> result = query.list();
-            for(OrdersEntity o:result)
-            {
-                String re= JSON.toJSONString(o, true);
+            List<OrdersEntity> result= query.list();
+
+
+                String re= JSON.toJSONString(result,SerializerFeature.PrettyFormat,
+                        SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullStringAsEmpty,
+                        SerializerFeature.DisableCircularReferenceDetect,
+                        SerializerFeature.WriteNullListAsEmpty);
                 out.write(re);
-            }
 
             out.close();
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();

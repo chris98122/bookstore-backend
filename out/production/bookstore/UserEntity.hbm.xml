@@ -21,10 +21,5 @@
         <property name="isActive">
             <column name="is_active" sql-type="tinyint(1)" not-null="true"/>
         </property>
-        <set name="orders" inverse="true">
-            <!-- 外键字段名称 -->
-            <key column="u_ID"></key>
-            <one-to-many class="OrdersEntity"/>
-        </set>
     </class>
 </hibernate-mapping>

@@ -39,7 +39,7 @@ public class OrderOperator {
     }
         public void OrderInsert(UserEntity p) {
             try{ Transaction tran = this.session.beginTransaction();//开始事物
-                this.session.save(p);//执行
+                this.session.update(p);//执行
                 tran.commit();//提交
             }
             catch (Exception ex) {

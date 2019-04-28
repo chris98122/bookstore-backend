@@ -11,11 +11,19 @@ public class OrderContentEntity {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
     private int bNum;
-    private OrdersEntity orders;
+    private int oid;
     private BookEntity book;
 
     public void setbNum(int bNum) {
         this.bNum = bNum;
+    }
+
+    public int getOid() {
+        return oid;
+    }
+
+    public void setOid(int oid) {
+        this.oid = oid;
     }
 
     public int getId() {
@@ -30,12 +38,6 @@ public class OrderContentEntity {
         return bNum;
     }
 
-    public OrdersEntity getOrders() {
-        return orders;
-    }
-    public void setOrders(OrdersEntity orders) {
-        this.orders = orders;
-    }
     public BookEntity getBook() {
         return book;
     }

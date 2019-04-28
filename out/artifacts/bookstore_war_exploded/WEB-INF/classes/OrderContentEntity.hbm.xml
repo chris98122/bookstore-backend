@@ -13,8 +13,10 @@
             <column name="b_num" sql-type="decimal(5)" precision="5" not-null="true"/>
         </property>
 
-        <many-to-one name="orders" column="o_ID" class="OrdersEntity"
-                   ></many-to-one>
+        <property name="oid">
+            <column name="o_ID" sql-type="int(11)"   />
+        </property>
+
 
         <many-to-one name="book" column="b_ID" class="BookEntity"></many-to-one>
     </class>

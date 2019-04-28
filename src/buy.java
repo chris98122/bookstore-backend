@@ -65,33 +65,35 @@ public class buy extends HttpServlet {
 
             String item = request.getParameter("item");
             List<BuyContent> buylist = new ArrayList<BuyContent>();
-            List<OrderContentEntity > list_order = new ArrayList<OrderContentEntity>();
+            //List<OrderContentEntity > list_order = new ArrayList<OrderContentEntity>();
             buylist =  JSONObject.parseArray(item, BuyContent.class);
 
             //contentset
             Set<OrderContentEntity> content_set=new HashSet<>();
 
             OrdersEntity order_insert = new OrdersEntity();
-            OrderContentEntity ordercontent[];
-            ordercontent = new OrderContentEntity[buylist.size()];
-            for (int i = 0; i < buylist.size(); i++) {
-                ordercontent [i]=new OrderContentEntity();
-            }
             for (int i = 0; i < buylist.size(); i++) {
                   int id = buylist.get(i).getId();
                   int bnum = buylist.get(i).getBnum();
                   float price = buylist.get(i).getPrice();
-                  ordercontent[i].setbNum(bnum);
-                ordercontent[i].setId(0);
-                ordercontent[i].setOrders(order_insert);
+                OrderContentEntity o=new OrderContentEntity();
+                o.setbNum(bnum);
+                  o.setId(0);
+                String hql = "select max(o.id)from OrdersEntity o " +
+                        " where o.isCart=0";
+                Query query = HibernateUtil.getSessionFactory()
+                        .getCurrentSession().createQuery(hql).setInteger("uid", userid);
+
+                 List<Integer> oid =query.list();
+                 o.setOid(oid.get(0)+1);
 
                 List<BookEntity> book_search = HibernateUtil.getSessionFactory()
                      .getCurrentSession().createQuery("from BookEntity where id=:i").setInteger("i", id).list();
 
-                ordercontent[i].setBook(book_search.get(0));
+                o.setBook(book_search.get(0));
 
-                order_insert.getOrderContent().add(ordercontent[i]);
-                order_insert.getOrdercontent().add(ordercontent[i]);
+                order_insert.getOrderContent().add(o);
+                order_insert.getOrdercontent().add(o);
          }
 
             order_insert.setId(0);
@@ -104,19 +106,17 @@ public class buy extends HttpServlet {
 
             List<UserEntity> user_search = HibernateUtil.getSessionFactory()
                     .getCurrentSession().createQuery("from UserEntity where  id=:i").setInteger("i", userid).list();
-            order_insert.setUser(user_search.get(0));
-
-            for (int i = 0; i < buylist.size(); i++) {
-                ordercontent[i].setOrders(order_insert);
-            }
 
 
+           // user_search.get(0).getOrders().add(order_insert);
 
+
+            order_insert.setUser( user_search.get(0));
             OrderOperator o = new OrderOperator();
 
             //o.OrderInsert(ordercontent[0]);
-            o.OrderInsert(order_insert);
-            //o.OrderInsert( user_search.get(0));
+             o.OrderInsert(order_insert);
+            // o.OrderInsert( user_search.get(0));
 
 
                 int orderid = order_insert.getId();
