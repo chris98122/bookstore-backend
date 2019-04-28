@@ -97,8 +97,8 @@ public class movein extends HttpServlet {
                     return;
                 }
             }
-            insert(bid,result.get(0).getId());
-            String re="加入购物车成功";
+            String bookname = insert(bid,result.get(0).getId());
+            String re= bookname +"加入购物车成功";
             out.write(re);
             out.close();
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
@@ -111,7 +111,7 @@ public class movein extends HttpServlet {
             }
         }
     }
-    public void insert(int bid,int oid) {
+    public String insert(int bid,int oid) {
         //获取Session
         Configuration config = new Configuration();
         SessionFactory factory = config.configure().buildSessionFactory();
@@ -132,5 +132,6 @@ public class movein extends HttpServlet {
         tx.commit();
 
         session.close();
+        return book_search.get(0).getName();
     }
 }

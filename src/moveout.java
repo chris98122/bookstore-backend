@@ -89,16 +89,16 @@ public class moveout extends HttpServlet {
             Iterator<OrderContentEntity> i = result.get(0).getOrderContent().iterator();//先迭代出来
 
             while(i.hasNext()){//遍历\
-                if(i.next().getBook().getId() == bid)
+                OrderContentEntity o= i.next();
+                if(o.getBook().getId() == bid)
                 {
-                    delete(i.next().getId());
-                    String re="移出购物车";
+                    delete(o.getId());
+                    String re=o.getBook().getName()+"移出购物车";
                     out.write(re);
+                    out.close();
                     break;
                 }
             }
-
-            out.close();
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
         } catch (Exception ex) {
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().rollback();
