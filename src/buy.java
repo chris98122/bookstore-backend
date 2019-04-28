@@ -74,6 +74,7 @@ public class buy extends HttpServlet {
             OrderContentEntity ordercontent[];
             ordercontent = new OrderContentEntity[buylist.size()];
             for (int i = 0; i < buylist.size(); i++) {
+
                 ordercontent [i]=new OrderContentEntity();
             }
 
@@ -97,26 +98,28 @@ public class buy extends HttpServlet {
 
             int c_id=cid.get(0)+1;
 
-            for (int i = 0; i < buylist.size(); i++) {
-                buylist.get(i).print();
+            OrderOperator o = new OrderOperator();
 
+
+            for (int i = 0; i < buylist.size(); i++) {
                 if(!buylist.get(i).isSelected())
                     continue;
 
                 int id = buylist.get(i).getId();
-                System.out.println(id);
+
                 int bnum = buylist.get(i).getBnum();
                 float price = buylist.get(i).getPrice();
                 ordercontent[i].setbNum(bnum);
                 ordercontent[i].setId(c_id+i);
                 ordercontent[i].setOid(o_id);
-
                 List<BookEntity> book_search = HibernateUtil.getSessionFactory()
                      .getCurrentSession().createQuery("from BookEntity where id=:i").setInteger("i", id).list();
 
                 ordercontent[i].setBook(book_search.get(0));
                 contentinsert.add( ordercontent[i]);
-         }
+                ordercontent[i].print();
+
+            }
 
             if(contentinsert.isEmpty())
             {
@@ -128,7 +131,11 @@ public class buy extends HttpServlet {
             }
 
             order_insert.setId(0);
-            order_insert.setOrdercontent(contentinsert);
+
+            Set<OrderContentEntity> co  = new HashSet<>(0);
+
+
+            order_insert.setOrdercontent(co);
            // order_insert.setOrderContent(contentinsert);
             Date date = new Date();
             order_insert.setDate(date);
@@ -140,13 +147,18 @@ public class buy extends HttpServlet {
                     .getCurrentSession().createQuery("from UserEntity where  id=:i").setInteger("i", userid).list();
 
             order_insert.setUser( user_search.get(0));
-            OrderOperator o = new OrderOperator();
 
              o.OrderInsert(order_insert);
                 int orderid = order_insert.getId();
                 String re = "下单成功，订单号" + Integer.toString(orderid);
                 out.write(re);
                 out.close();
+
+
+            for (int i = 0; i < buylist.size(); i++) {
+                if(buylist.get(i).isSelected())
+                    o.OrderInsert(ordercontent[i]);
+            }
                 //购物车减去已经下单的商品
 
                 HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
