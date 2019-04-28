@@ -1152,131 +1152,136 @@
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="290" parent="280" name="PRIMARY">
+    <column id="290" parent="280" name="detail">
+      <Position>7</Position>
+      <DataType>text|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="291" parent="280" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="291" parent="281" name="ID">
+    <column id="292" parent="281" name="ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="292" parent="281" name="o_ID">
+    <column id="293" parent="281" name="o_ID">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="293" parent="281" name="b_ID">
+    <column id="294" parent="281" name="b_ID">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="294" parent="281" name="b_num">
+    <column id="295" parent="281" name="b_num">
       <Position>4</Position>
       <DataType>decimal(5)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="295" parent="281" name="o_ID">
+    <index id="296" parent="281" name="o_ID">
       <ColNames>o_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="296" parent="281" name="b_ID">
+    <index id="297" parent="281" name="b_ID">
       <ColNames>b_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="297" parent="281" name="PRIMARY">
+    <key id="298" parent="281" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="298" parent="281" name="order_content_ibfk_1">
+    <foreign-key id="299" parent="281" name="order_content_ibfk_1">
       <ColNames>o_ID</ColNames>
       <RefSchemaName>bookstore</RefSchemaName>
       <RefTableName>orders</RefTableName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <foreign-key id="299" parent="281" name="order_content_ibfk_2">
+    <foreign-key id="300" parent="281" name="order_content_ibfk_2">
       <ColNames>b_ID</ColNames>
       <RefSchemaName>bookstore</RefSchemaName>
       <RefTableName>book</RefTableName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <column id="300" parent="282" name="ID">
+    <column id="301" parent="282" name="ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="301" parent="282" name="u_ID">
+    <column id="302" parent="282" name="u_ID">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="302" parent="282" name="buydate">
+    <column id="303" parent="282" name="buydate">
       <Position>3</Position>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="303" parent="282" name="tot_price">
+    <column id="304" parent="282" name="tot_price">
       <Position>4</Position>
       <DataType>decimal(5,2 digit)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="304" parent="282" name="is_cart">
+    <column id="305" parent="282" name="is_cart">
       <Position>5</Position>
       <DataType>tinyint(1)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="305" parent="282" name="u_ID">
+    <index id="306" parent="282" name="u_ID">
       <ColNames>u_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="306" parent="282" name="PRIMARY">
+    <key id="307" parent="282" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="307" parent="282" name="orders_ibfk_1">
+    <foreign-key id="308" parent="282" name="orders_ibfk_1">
       <ColNames>u_ID</ColNames>
       <RefSchemaName>bookstore</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>ID</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="308" parent="283" name="ID">
+    <column id="309" parent="283" name="ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="309" parent="283" name="name">
+    <column id="310" parent="283" name="name">
       <Position>2</Position>
       <DataType>varchar(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="310" parent="283" name="password">
+    <column id="311" parent="283" name="password">
       <Position>3</Position>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="311" parent="283" name="email">
+    <column id="312" parent="283" name="email">
       <Position>4</Position>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="312" parent="283" name="is_active">
+    <column id="313" parent="283" name="is_active">
       <Position>5</Position>
       <DataType>tinyint(1)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="313" parent="283" name="PRIMARY">
+    <key id="314" parent="283" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>

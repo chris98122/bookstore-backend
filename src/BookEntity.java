@@ -17,6 +17,7 @@ public class BookEntity {
     private Integer stock;
     private float price;
     private String isbn;
+    private String detail;
     @Id
     @Column(name = "ID", nullable = false, length = 5)
     public int getId() {
@@ -74,6 +75,14 @@ public class BookEntity {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
     @Override
