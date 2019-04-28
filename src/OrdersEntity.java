@@ -9,11 +9,14 @@ import java.util.Objects;
 import java.util.Date;
 import java.util.HashSet;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
 import java.util.Set;
 public class OrdersEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
+    @JSONField (format="yyyy-MM-dd HH:mm:ss")
     private Date date;
 
     public Date getDate() {

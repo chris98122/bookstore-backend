@@ -3,6 +3,15 @@ public class BuyContent {
     private int bnum;
     private String name;
     private float price;
+    private boolean selected;
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 
     public int getId() {
         return id;
