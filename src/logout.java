@@ -53,6 +53,9 @@ public class logout  extends HttpServlet {
             request.getSession().removeAttribute("userid");//清空session信息
             request.getSession().invalidate();
 
+            PrintWriter out = response.getWriter();
+            out.write("登出");
+            out.close();
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
         }
         catch (Exception ex) {

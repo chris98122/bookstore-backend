@@ -4,10 +4,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Objects;
 
-import java.util.HashSet;
-
-import java.util.Set;
-
 public class UserEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

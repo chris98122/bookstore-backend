@@ -154,12 +154,34 @@ public class buy extends HttpServlet {
                 out.write(re);
                 out.close();
 
-
             for (int i = 0; i < buylist.size(); i++) {
                 if(buylist.get(i).isSelected())
                     o.OrderInsert(ordercontent[i]);
             }
                 //购物车减去已经下单的商品
+
+            String hql3 = "from OrdersEntity o " +
+                    " where o.user.id =:uid and o.isCart=1";
+            Query query3 = HibernateUtil.getSessionFactory()
+                    .getCurrentSession().createQuery(hql3).setInteger("uid", userid);
+
+            List<OrdersEntity> result= query3.list();
+            Set<OrderContentEntity> oc = result.get(0).getOrderContent();
+
+            for (int i = 0; i < buylist.size(); i++) {
+                if(buylist.get(i).isSelected())
+                {
+                    Iterator<OrderContentEntity> it = oc.iterator();//先迭代出来
+                    while(it.hasNext()){//遍历\
+                        OrderContentEntity ot= it.next();
+                        if(ot.getBook().getId() == buylist.get(i).getId())
+                        {
+                            delete(ot.getId());
+                            break;
+                        }
+                    }
+                }
+            }
 
                 HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
 

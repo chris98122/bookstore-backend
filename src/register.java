@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
+import java.util.Date;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -19,6 +20,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.util.HashSet;
+
+import java.util.Set;
 @WebServlet("/register")
 public class register  extends HttpServlet {
 
@@ -64,7 +68,26 @@ public class register  extends HttpServlet {
             //通过实例化的user对象插入数据
             UserOperator uo = new UserOperator();
             uo.UserInsert(user);
+
+            OrderOperator o =new OrderOperator();
+            OrdersEntity cart = new OrdersEntity();
+            cart.setId(0);
+            cart.setUser(user);
+            Set<OrderContentEntity> ordercontent = new HashSet<>(0);
+            cart.setOrdercontent(ordercontent);
+            Date date = new Date();
+            cart.setDate(date);
+            Byte iscart = 1;
+            cart.setIsCart(iscart);
+            cart.setTotPrice(0);
+            o.OrderInsert(cart);
+
             out.write("注册成功");
+
+            HttpSession session = request.getSession();
+            session.setAttribute("username", name);
+            session.setAttribute("userid", user.getId());
+
             out.close();
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
         }
