@@ -79,8 +79,13 @@ public class login  extends HttpServlet {
                 }
                 else
                 {
-                    session.setAttribute("isAdmin",false);
-                    out.write("用户登录成功");
+                    Byte a = 0;
+                    if(result.get(0).getIsActive() == a)
+                        out.write("您被禁止登录");
+                    else {
+                        session.setAttribute("isAdmin", false);
+                        out.write("用户登录成功");
+                    }
                 }
             }
             out.close();

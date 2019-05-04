@@ -78,6 +78,8 @@ public class buy extends HttpServlet {
                 ordercontent [i]=new OrderContentEntity();
             }
 
+            Set<BookEntity> book_set=new HashSet<>();
+
          Set<OrderContentEntity> contentinsert = new HashSet<>(0);
 
 
@@ -114,6 +116,11 @@ public class buy extends HttpServlet {
                 ordercontent[i].setOid(o_id);
                 List<BookEntity> book_search = HibernateUtil.getSessionFactory()
                      .getCurrentSession().createQuery("from BookEntity where id=:i").setInteger("i", id).list();
+//
+//
+                int stock = book_search.get(0).getStock()- bnum;
+//                book_search.get(0).setStock(stock);
+                book_set.add(book_search.get(0));
 
                 ordercontent[i].setBook(book_search.get(0));
                 contentinsert.add( ordercontent[i]);
@@ -183,6 +190,22 @@ public class buy extends HttpServlet {
                 }
             }
 
+            for (int i = 0; i < buylist.size(); i++) {
+                if(buylist.get(i).isSelected())
+                {
+                    Iterator<BookEntity> it = book_set.iterator();//先迭代出来
+                    while(it.hasNext()){//遍历\
+                        BookEntity ot= it.next();
+                        if(ot.getId() == buylist.get(i).getId())
+                        {
+                            int stock = ot.getStock()- buylist.get(i).getBnum();
+                            ot.setStock(stock);
+                             update(ot);
+                            break;
+                        }
+                    }
+                }
+            }
                 HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
 
             } catch (Exception ex) {
@@ -207,6 +230,22 @@ public class buy extends HttpServlet {
         OrderContentEntity o =new OrderContentEntity();
         o.setId(id);
         session.delete(o);
+        //提交事务
+        tx.commit();
+
+        session.close();
+    }
+
+    public void update(BookEntity o) {
+        //获取Session
+        Configuration config = new Configuration();
+        SessionFactory factory = config.configure().buildSessionFactory();
+
+        // 所有的操作都是通过sess
+        Session session = factory.openSession();
+        //获取Hibernate的事务
+        Transaction tx = session.beginTransaction();
+        session.update(o);
         //提交事务
         tx.commit();
 

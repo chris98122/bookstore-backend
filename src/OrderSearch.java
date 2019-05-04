@@ -69,34 +69,35 @@ public class OrderSearch  extends HttpServlet {
 
             }
 
-            String receive=request.getParameter("date");
+            String start=request.getParameter("startdate");
             SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 
-            Date date = dateformat.parse(receive);
+            Date startdate = dateformat.parse(start);
 
-            System.out.println(date);
+            System.out.println(startdate);
 
-//
-//            int userid = (int) session.getAttribute("userid");
-//            String hql = "from OrdersEntity o " +
-//                    " where o.user.id =:uid and o.isCart=0";
-//            Query query = HibernateUtil.getSessionFactory()
-//                    .getCurrentSession().createQuery(hql).setInteger("uid", userid);
-//            List<OrdersEntity> result= query.list();
-//
-//
-//            String re= JSON.toJSONString(result,SerializerFeature.PrettyFormat,
-//                    SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullStringAsEmpty,
-//                    SerializerFeature.DisableCircularReferenceDetect,
-////                    SerializerFeature.WriteNullListAsEmpty);
-//            java.util.Date date=new java.util.Date();
-//
-//            String hql="select i from table i where i.date=?";
-//
-//            Query q=new Query(hql);
-//
-//            q.setDate(0,date);
 
+            String end=request.getParameter("enddate");
+
+            Date enddate = dateformat.parse(end);
+
+            System.out.println(enddate);
+
+            int userid = (int) session.getAttribute("userid");
+              String hql = "from OrdersEntity o " +
+                 " where o.user.id =:uid and o.isCart=0 and o.date >:d1 and o.date<:d2";
+          Query query = HibernateUtil.getSessionFactory()
+                   .getCurrentSession().createQuery(hql)
+                  .setInteger("uid", userid)
+                  .setDate("d1", startdate).setDate("d2", enddate);
+           List<OrdersEntity> result= query.list();
+
+
+            String re= JSON.toJSONString(result,SerializerFeature.PrettyFormat,
+                    SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullStringAsEmpty,
+                    SerializerFeature.DisableCircularReferenceDetect,
+                    SerializerFeature.WriteNullListAsEmpty);
+            out.write(re);
             out.close();
             HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
         } catch (Exception ex) {
